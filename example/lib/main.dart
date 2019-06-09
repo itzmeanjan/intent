@@ -36,11 +36,8 @@ class _MyAppState extends State<MyApp> {
             color: Colors.cyanAccent,
             elevation: 16,
             onPressed: () => Intent()
-              ..setAction(Action.ACTION_SENDTO)
-              ..setType("text/plain")
-              ..setData("mailto:anjanroy@yandex.com")
-              ..putExtra(Extra.EXTRA_TEXT, "ok")
-              ..startActivity(),
+              ..setAction(Action.ACTION_OPEN_DOCUMENT_TREE)
+              ..startActivity().catchError((e) => print(e)),
             child: Text('Intent'),
           ),
         ),

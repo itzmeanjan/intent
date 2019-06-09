@@ -11,10 +11,10 @@ class Intent {
 
   String _action;
   String _type;
-  String _data;
+  Uri _data;
   List<String> _category;
   List<int> _flag;
-  Map<String, String> _extra;
+  Map<String, dynamic> _extra;
 
   /// adds category for this intent
   ///
@@ -26,7 +26,8 @@ class Intent {
   /// Get possible flag values from Flag class
   addFlag(int flag) => this._flag.add(flag);
 
-  putExtra(String extra, String data) => this._extra[extra] = data;
+  /// puts extra data, to be sent along with intent
+  putExtra(String extra, dynamic data) => this._extra[extra] = data;
 
   /// sets what action this intent is supposed to do
   ///
@@ -37,17 +38,19 @@ class Intent {
   setType(String type) => this._type = type;
 
   /// sets data, on which intent will perform selected action
-  setData(String data) => this._data = data;
+  setData(Uri data) => this._data = data;
 
   /// You'll most likely use this method.
   ///
   /// Will invoke an activity using platform channel, while passing all parameters and setting them in intent
-  startActivity() => _channel.invokeMethod('startActivity', <String, dynamic>{
-        'category': _category,
-        'flag': _flag,
-        'extra': _extra,
+  Future<void> startActivity({bool createChooser: false}) =>
+      _channel.invokeMethod('startActivity', <String, dynamic>{
+        'category': _category.isEmpty ? null : _category,
+        'flag': _flag.isEmpty ? null : _flag,
+        'extra': _extra.isEmpty ? null : _extra,
         'action': _action,
         'type': _type,
         'data': _data.toString(),
+        'chooser': createChooser,
       });
 }

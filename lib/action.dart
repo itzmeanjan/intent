@@ -1,38 +1,77 @@
 class Action {
+  /// gets a list of available apps
   static const String ACTION_ALL_APPS = "android.intent.action.ALL_APPS";
-  static const String ACTION_ANSWER = "android.intent.action.ANSWER";
+
+  /// lets adjust application preference
   static const String ACTION_APPLICATION_PREFERENCES =
       "android.intent.action.APPLICATION_PREFERENCES";
+
+  /// helps in error reporting
   static const String ACTION_APP_ERROR = "android.intent.action.APP_ERROR";
+
+  /// launches google app by default, which can provide user assistance
   static const String ACTION_ASSIST = "android.intent.action.ASSIST";
   static const String ACTION_ATTACH_DATA = "android.intent.action.ATTACH_DATA";
+
+  /// lets user report bug
   static const String ACTION_BUG_REPORT = "android.intent.action.BUG_REPORT";
+
+  /// lets call a number, opens dialer
+  ///
+  /// not all app possesses calling permission, so to stay on safe side,
+  /// you may be interested in using DIAL action
   static const String ACTION_CALL = "android.intent.action.CALL";
+
+  /// this one will simply open an activity, where user can place a call
+  ///
+  /// mostly it'll be opening default phone app installed
   static const String ACTION_CALL_BUTTON = "android.intent.action.CALL_BUTTON";
-  static const String ACTION_CAMERA_BUTTON =
-      "android.intent.action.CAMERA_BUTTON";
+
+  /// requires carrier privilege, opens default activity for modifying carrier setting
   static const String ACTION_CARRIER_SETUP =
       "android.intent.action.CARRIER_SETUP";
-  static const String ACTION_CHOOSER = "android.intent.action.CHOOSER";
-  static const String ACTION_CLOSE_SYSTEM_DIALOGS =
-      "android.intent.action.CLOSE_SYSTEM_DIALOGS";
+
+  /// creates a new document
   static const String ACTION_CREATE_DOCUMENT =
       "android.intent.action.CREATE_DOCUMENT";
+
+  /// creates app shortcut
   static const String ACTION_CREATE_SHORTCUT =
       "android.intent.action.CREATE_SHORTCUT";
+
+  /// displays specified data to user
+  ///
+  /// this is the mostly performed action on data
+  ///
+  /// you may be passing a URL, and it'll open list of eligible candidate apps, which can help you in viewing that URL
   static const String ACTION_VIEW = "android.intent.action.VIEW";
+
+  /// quickly opens default assist app, and finds definition for queried text
   static const String ACTION_DEFINE = "android.intent.action.DEFINE";
+
+  /// a certain Uri to be deleted, which is to be specified using data field
   static const String ACTION_DELETE = "android.intent.action.DELETE";
-  static const String ACTION_DIAL =
-      "android.intent.action.DIAL"; // helps in placing a call, opens dialer
+
+  /// for opening dialer with a number pre filled, you'll be mostly using this action
+  static const String ACTION_DIAL = "android.intent.action.DIAL";
+
+  /// lets you edit data, specified using Uri
   static const String ACTION_EDIT = "android.intent.action.EDIT";
+
+  /// opens file picker, gets you content of specified types
+  ///
+  /// can be opened for getting images/ videos/ music etc.
   static const String ACTION_GET_CONTENT = "android.intent.action.GET_CONTENT";
   static const String ACTION_INSERT = "android.intent.action.INSERT";
   static const String ACTION_INSERT_OR_EDIT =
       "android.intent.action.INSERT_OR_EDIT";
   static const String ACTION_MAIN = "android.intent.action.MAIN";
+
+  /// opens a document, specified using Uri
   static const String ACTION_OPEN_DOCUMENT =
       "android.intent.action.OPEN_DOCUMENT";
+
+  /// opens whole document tree, using default file manager activity
   static const String ACTION_OPEN_DOCUMENT_TREE =
       "android.intent.action.OPEN_DOCUMENT_TREE";
   static const String ACTION_PASTE = "android.intent.action.PASTE";
