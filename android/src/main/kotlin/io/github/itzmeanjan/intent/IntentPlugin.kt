@@ -32,6 +32,11 @@ class IntentPlugin(private val registrar: Registrar, private val flutterView: Fl
         call.argument<String>("data")?.apply {
           intent.data = Uri.parse(this)
         }
+        call.argument<Map<String, String>>("extra")?.apply {
+          this.entries.forEach {
+            intent.putExtra(it.key, it.value)
+          }
+        }
         call.argument<List<Int>>("flag")?.forEach {
           intent.addFlags(it)
         }
