@@ -60,6 +60,7 @@ class IntentPlugin(private val activity: Activity) : MethodCallHandler {
                 try {
                     if (call.argument<Boolean>("chooser")!!) activity.startActivity(Intent.createChooser(intent, "Sharing"))
                     else activity.startActivity(intent)
+                    //result.success(null)
                 } catch (e: Exception) {
                     result.error("Error", e.toString(), null)
                 }

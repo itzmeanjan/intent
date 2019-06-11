@@ -3,6 +3,7 @@ import 'package:intent/intent.dart';
 import 'package:intent/action.dart';
 import 'package:intent/extra.dart';
 import 'package:intent/category.dart';
+import 'package:intent/flag.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,7 +37,8 @@ class _MyAppState extends State<MyApp> {
             color: Colors.cyanAccent,
             elevation: 16,
             onPressed: () => Intent()
-              ..setAction(Action.ACTION_OPEN_DOCUMENT_TREE)
+              ..setAction(Action.ACTION_DIAL)
+              ..setData(Uri(scheme: "tel", path: "9434944980"))
               ..startActivity().catchError((e) => print(e)),
             child: Text('Intent'),
           ),
