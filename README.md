@@ -4,7 +4,7 @@ A simple flutter plugin to deal with Android Intents, written with :heart:.
 
 Show some :heart: by putting :star:
 
-**`intent` tries help you in launching another android activity using *Android Intents.* This Dart API replicates Android Intent API, so for detailed information on how to use it efficiently, when to send what kind of data, you may be interested in taking a look [here](https://developer.android.com/reference/android/content/Intent.html#intent-structure). Which explains things more elaborately.**
+**`intent` tries to help you in launching another android activity using *Android Intents.* This Dart API replicates Android Intent API, so for detailed information on how to use it efficiently, when to send what kind of data, you may be interested in taking a look [here](https://developer.android.com/reference/android/content/Intent.html#intent-structure). Which explains things more elaborately.**
 
 `intent` is readily available for [use](https://pub.dev/packages/intent).
 
