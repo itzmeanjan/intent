@@ -6,6 +6,8 @@ Show some :heart: by putting :star:
 
 **`intent` tries help you in launching another android activity using *Android Intents.* This Dart API replicates Android Intent API, so for detailed information on how to use it efficiently, when to send what kind of data, you may be interested in taking a look [here](https://developer.android.com/reference/android/content/Intent.html#intent-structure). Which explains things more elaborately.**
 
+`intent` is readily available for [use](https://pub.dev/packages/intent).
+
 ## what does it do ?
 - `intent` is your one stop solution for handling different Android Intents from Flutter app.
 - It provides an easy to use *Dart* API, which can be used to launch different kind of Android Activities

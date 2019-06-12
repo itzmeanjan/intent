@@ -1,6 +1,8 @@
 name: intent_example
+author: Anjan Roy<anjanroy@yandex.com>
 description: Demonstrates how to use the intent plugin.
 publish_to: 'none'
+homepage: https://github.com/itzmeanjan/intent
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
