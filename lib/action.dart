@@ -62,6 +62,8 @@ class Action {
   ///
   /// can be opened for getting images/ videos/ music etc.
   static const String ACTION_GET_CONTENT = "android.intent.action.GET_CONTENT";
+
+  /// you can create new contact using this action
   static const String ACTION_INSERT = "android.intent.action.INSERT";
   static const String ACTION_INSERT_OR_EDIT =
       "android.intent.action.INSERT_OR_EDIT";
@@ -75,24 +77,46 @@ class Action {
   static const String ACTION_OPEN_DOCUMENT_TREE =
       "android.intent.action.OPEN_DOCUMENT_TREE";
   static const String ACTION_PASTE = "android.intent.action.PASTE";
+
+  /// will be made to work in future releases
   static const String ACTION_PICK = "android.intent.action.PICK";
+
+  /// power usage summy displaying activity
   static const String ACTION_POWER_USAGE_SUMMARY =
       "android.intent.action.POWER_USAGE_SUMMARY";
+
+  /// processes text
   static const String ACTION_PROCESS_TEXT =
       "android.intent.action.PROCESS_TEXT";
   static const String ACTION_QUICK_VIEW = "android.intent.action.QUICK_VIEW";
+
+  /// search for a certain term, put as EXTRA_TEXT
   static const String ACTION_SEARCH = "android.intent.action.SEARCH";
+
+  /// share text/ document/ multimedia
   static const String ACTION_SEND = "android.intent.action.SEND";
+
+  /// send to a certain user, denoted by data URI
   static const String ACTION_SENDTO = "android.intent.action.SENDTO";
+
+  /// send multiple documents at a time
   static const String ACTION_SEND_MULTIPLE =
       "android.intent.action.SEND_MULTIPLE";
+
+  /// set wallpaper activity
   static const String ACTION_SET_WALLPAPER =
       "android.intent.action.SET_WALLPAPER";
+
+  /// opens app info displaying activity
   static const String ACTION_SHOW_APP_INFO =
       "android.intent.action.SHOW_APP_INFO";
+
+  /// synchronize app data with backend
   static const String ACTION_SYNC = "android.intent.action.SYNC";
   static const String ACTION_SYSTEM_TUTORIAL =
       "android.intent.action.SYSTEM_TUTORIAL";
+
+  /// translate data passed with intent
   static const String ACTION_TRANSLATE = "android.intent.action.TRANSLATE";
   static const String ACTION_VOICE_COMMAND =
       "android.intent.action.VOICE_COMMAND";

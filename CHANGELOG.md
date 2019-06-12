@@ -1,3 +1,5 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+* `intent` is your one stop solution for handling different Android Intents from Flutter app. 
+
+**Enjoy :)**

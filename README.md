@@ -4,7 +4,7 @@ A simple flutter plugin to deal with Android Intents, written with :heart:.
 
 Show some :heart: by putting :star:
 
-**This Flutter plugin tries help you in launching another android activity using *Android Intents.* This Dart API replicates Android Intent API, so for detailed information on how to use it efficiently, when to send what kind of data, you may be interested in taking a look [here](https://developer.android.com/reference/android/content/Intent.html#intent-structure).**
+**`intent` tries help you in launching another android activity using *Android Intents.* This Dart API replicates Android Intent API, so for detailed information on how to use it efficiently, when to send what kind of data, you may be interested in taking a look [here](https://developer.android.com/reference/android/content/Intent.html#intent-structure). Which explains things more elaborately.**
 
 ## what does it do ?
 - `intent` is your one stop solution for handling different Android Intents from Flutter app.
@@ -198,4 +198,4 @@ PlatformException(Error, android.content.ActivityNotFoundException: No Activity 
 
 **Currently a limited number of Actions are provided in `Action` class, but you can always use a string constant as an `Action`, which will help you in dealing with many more Activities.**
 
-Hoping this helps :)
+Hoping this helps :wink:
