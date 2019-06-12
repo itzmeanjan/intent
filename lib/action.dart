@@ -96,5 +96,7 @@ class Action {
   static const String ACTION_TRANSLATE = "android.intent.action.TRANSLATE";
   static const String ACTION_VOICE_COMMAND =
       "android.intent.action.VOICE_COMMAND";
+
+  /// perform a web search using default search activity
   static const String ACTION_WEB_SEARCH = "android.intent.action.WEB_SEARCH";
 }

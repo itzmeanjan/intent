@@ -43,14 +43,15 @@ class Intent {
   /// You'll most likely use this method.
   ///
   /// Will invoke an activity using platform channel, while passing all parameters and setting them in intent
-  Future<void> startActivity({bool createChooser: false}) =>
-      _channel.invokeMethod('startActivity', <String, dynamic>{
-        'category': _category.isEmpty ? null : _category,
-        'flag': _flag.isEmpty ? null : _flag,
-        'extra': _extra.isEmpty ? null : _extra,
-        'action': _action,
-        'type': _type,
-        'data': _data.toString(),
-        'chooser': createChooser,
-      });
+  Future<void> startActivity({bool createChooser: false}) {
+    Map<String, dynamic> parameters = {};
+    if (_action != null) parameters['action'] = _action;
+    if (_type != null) parameters['type'] = _type;
+    if (_data != null) parameters['data'] = _data.toString();
+    if (_category.isNotEmpty) parameters['category'] = _category;
+    if (_flag.isNotEmpty) parameters['flag'] = _flag;
+    if (_extra.isNotEmpty) parameters['extra'] = _extra;
+    parameters['chooser'] = createChooser;
+    return _channel.invokeMethod('startActivity', parameters);
+  }
 }

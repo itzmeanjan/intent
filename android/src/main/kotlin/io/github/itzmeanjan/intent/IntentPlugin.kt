@@ -22,13 +22,14 @@ class IntentPlugin(private val activity: Activity) : MethodCallHandler {
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             "startActivity" -> {
-                val intent: Intent = Intent().apply {
-                    action = call.argument<String>("action")
-                    data = Uri.parse(call.argument<String>("data"))
-                }
+                val intent = Intent()
+                intent.action = call.argument<String>("action")
+                if (call.argument<String>("data") != null)
+                    intent.data = Uri.parse(call.argument<String>("data"))
                 call.argument<Map<String, Any>>("extra")?.apply {
                     this.entries.forEach {
                         when (it.key) {
+                            Intent.EXTRA_DONT_KILL_APP,
                             Intent.EXTRA_LOCAL_ONLY,
                             Intent.EXTRA_ALLOW_MULTIPLE, Intent.EXTRA_PROCESS_TEXT_READONLY -> intent.putExtra(it.key, it.value as Boolean)
                             Intent.EXTRA_EMAIL,
@@ -40,13 +41,12 @@ class IntentPlugin(private val activity: Activity) : MethodCallHandler {
                             Intent.EXTRA_CONTENT_ANNOTATIONS -> intent.putExtra(it.key, (it.value as? ArrayList<*>)?.filterIsInstance<String>() as ArrayList<String>)
                             Intent.EXTRA_ORIGINATING_URI -> intent.putExtra(it.key, it.value as Uri)
                             Intent.EXTRA_PROCESS_TEXT, Intent.EXTRA_TEXT, Intent.EXTRA_TITLE -> {
-                                if (intent.action == Intent.ACTION_WEB_SEARCH)
+                                if (listOf(Intent.ACTION_WEB_SEARCH, Intent.ACTION_SEARCH).contains(intent.action!!))
                                     intent.putExtra("query", it.value as CharSequence)
                                 else
                                     intent.putExtra(it.key, it.value as CharSequence)
                             }
                             else -> intent.putExtra(it.key, it.value as String)
-
                         }
                     }
                 }
@@ -56,11 +56,12 @@ class IntentPlugin(private val activity: Activity) : MethodCallHandler {
                 call.argument<List<String>>("category")?.forEach {
                     intent.addCategory(it)
                 }
-                intent.type = call.argument<String>("type")
+                if (call.argument<String>("type") != null)
+                    intent.type = call.argument<String>("type")
+                println(intent.flags)
                 try {
                     if (call.argument<Boolean>("chooser")!!) activity.startActivity(Intent.createChooser(intent, "Sharing"))
                     else activity.startActivity(intent)
-                    //result.success(null)
                 } catch (e: Exception) {
                     result.error("Error", e.toString(), null)
                 }

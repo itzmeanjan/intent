@@ -37,8 +37,8 @@ class _MyAppState extends State<MyApp> {
             color: Colors.cyanAccent,
             elevation: 16,
             onPressed: () => Intent()
-              ..setAction(Action.ACTION_DIAL)
-              ..setData(Uri(scheme: "tel", path: "9434944980"))
+              ..setAction(Action.ACTION_TRANSLATE)
+              ..putExtra(Extra.EXTRA_TEXT, "I Love Computers")
               ..startActivity().catchError((e) => print(e)),
             child: Text('Intent'),
           ),
