@@ -54,4 +54,18 @@ class Intent {
     parameters['chooser'] = createChooser;
     return _channel.invokeMethod('startActivity', parameters);
   }
+
+  Future<List<String>> startActivityForResult({bool createChooser: false}) {
+    Map<String, dynamic> parameters = {};
+    if (_action != null) parameters['action'] = _action;
+    if (_type != null) parameters['type'] = _type;
+    if (_data != null) parameters['data'] = _data.toString();
+    if (_category.isNotEmpty) parameters['category'] = _category;
+    if (_flag.isNotEmpty) parameters['flag'] = _flag;
+    if (_extra.isNotEmpty) parameters['extra'] = _extra;
+    parameters['chooser'] = createChooser;
+    return _channel
+        .invokeMethod('startActivityForResult', parameters)
+        .then((data) => List<String>.from(data));
+  }
 }

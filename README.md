@@ -183,6 +183,16 @@ Intent()
         ..putExtra(Extra.EXTRA_TEXT, "I Love Computers")
         ..startActivity().catchError((e) => print(e));
 ```
+### Pick a Contact Up from Phone :
+- Opens default Phone Activity and let user pick a contact up, selected contact will be returned as `Future<List<String>>` from `startActivityForResult()`.
+```dart
+        Intent()
+                ..setAction(Action.ACTION_PICK)
+                ..setData(Uri.parse('content://contacts'))
+                ..setType("vnd.android.cursor.dir/phone_v2")
+                ..startActivityForResult().then((data) => print(data),
+                onError: (e) => print(e));
+```
 
 If you're not interested in showing default activity launch animation, set following flag.
 ```dart
