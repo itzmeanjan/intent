@@ -25,6 +25,8 @@ Show some :heart: by putting :star:
 - Set Wallpaper
 - Open any `URL`
 - Open Dialer for calling a specific number
+- Can pick a contact from your default phone activity
+- Can capture a photo using default _Camera Activity_
 
 ## how to use it ?
 Well make sure, you include `intent` in your `pubspec.yaml`.
@@ -201,6 +203,7 @@ Path to captured image can be grabbed from `Intent().startActivityForResult().th
                 ..startActivityForResult().then((data) => print(data[0]), // gets you path to image captured
                 onError: (e) => print(e));
 ```
+![image_capture_using_intent](image_capture.gif)
 
 If you're not interested in showing default activity launch animation, set following flag.
 ```dart
