@@ -5,6 +5,7 @@ import 'package:intent/extra.dart';
 import 'package:intent/category.dart';
 import 'package:intent/flag.dart';
 import 'dart:async' show StreamController;
+import 'dart:io';
 
 void main() => runApp(MyApp());
 
@@ -53,21 +54,19 @@ class _MyAppState extends State<MyApp> {
                         bottom: 24,
                       ),
                       child: snapshot.hasData
-                          ? Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: snapshot.data
-                                  .map((item) => Padding(
-                                        child: Text('Item :: $item'),
-                                        padding: EdgeInsets.only(
-                                          top: 8,
-                                          bottom: 8,
-                                          left: 3,
-                                          right: 3,
-                                        ),
-                                      ))
-                                  .toList(),
-                            )
+                          ? snapshot.data.isNotEmpty
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(24),
+                                  child: Image.file(
+                                    File(snapshot.data[0]),
+                                    fit: BoxFit.cover,
+                                    width:
+                                        MediaQuery.of(context).size.width * .75,
+                                    height: MediaQuery.of(context).size.height *
+                                        .35,
+                                  ),
+                                )
+                              : Center()
                           : CircularProgressIndicator(),
                     ),
               ),
@@ -75,9 +74,7 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.cyanAccent,
                 elevation: 16,
                 onPressed: () => Intent()
-                  ..setAction(Action.ACTION_PICK)
-                  ..setData(Uri.parse('content://contacts'))
-                  ..setType("vnd.android.cursor.dir/phone_v2")
+                  ..setAction(Action.ACTION_IMAGE_CAPTURE)
                   ..startActivityForResult().then(
                     (data) => _myAppDataModel.inputClickState.add(data),
                     onError: (e) =>

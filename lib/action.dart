@@ -123,4 +123,8 @@ class Action {
 
   /// perform a web search using default search activity
   static const String ACTION_WEB_SEARCH = "android.intent.action.WEB_SEARCH";
+
+  /// intent to capture image, using default camera activity
+  static const String ACTION_IMAGE_CAPTURE =
+      "android.media.action.IMAGE_CAPTURE";
 }

@@ -3,18 +3,25 @@ package io.github.itzmeanjan.intent
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Environment
 import android.provider.ContactsContract
 import android.provider.MediaStore
+import androidx.core.content.FileProvider
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.collections.ArrayList
 
 class IntentPlugin(private val registrar: Registrar, private val activity: Activity) : MethodCallHandler {
 
     private var activityCompletedCallBack: ActivityCompletedCallBack? = null
+    lateinit var toBeCapturedImageLocationURI: Uri
+    lateinit var tobeCapturedImageLocationFilePath: File
 
     companion object {
         @JvmStatic
@@ -55,6 +62,13 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                         activityCompletedCallBack?.sendDocument(listOf())
                         false
                     }
+                }
+                998 -> {
+                    if (resultCode == Activity.RESULT_OK) {
+                        activityCompletedCallBack?.sendDocument(listOf(tobeCapturedImageLocationFilePath.absolutePath))
+                        true
+                    } else
+                        false
                 }
                 else -> {
                     false
@@ -118,6 +132,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                         result.success(data)
                     }
                 }
+                val activityImageCaptureCode = 998
                 val activityIdentifierCode = 999
                 val intent = Intent()
                 intent.action = call.argument<String>("action")
@@ -156,13 +171,35 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                 if (call.argument<String>("type") != null)
                     intent.type = call.argument<String>("type")
                 try {
-                    if (call.argument<Boolean>("chooser")!!) activity.startActivityForResult(Intent.createChooser(intent, "Sharing"), activityIdentifierCode)
-                    else activity.startActivityForResult(intent, activityIdentifierCode)
+                    if (intent.action == MediaStore.ACTION_IMAGE_CAPTURE) {
+                        intent.resolveActivity(activity.packageManager).also {
+                            getImageTempFile()?.also {
+                                tobeCapturedImageLocationFilePath = it
+                                toBeCapturedImageLocationURI = FileProvider.getUriForFile(activity.applicationContext, "io.github.itzmeanjan.intent.fileProvider", it)
+                                intent.putExtra(MediaStore.EXTRA_OUTPUT, toBeCapturedImageLocationURI)
+                                activity.startActivityForResult(intent, activityImageCaptureCode)
+                            }
+                        }
+
+                    } else {
+                        if (call.argument<Boolean>("chooser")!!) activity.startActivityForResult(Intent.createChooser(intent, "Sharing"), activityIdentifierCode)
+                        else activity.startActivityForResult(intent, activityIdentifierCode)
+                    }
                 } catch (e: Exception) {
                     result.error("Error", e.toString(), null)
                 }
             }
             else -> result.notImplemented()
+        }
+    }
+
+    private fun getImageTempFile(): File? {
+        return try {
+            val timeStamp = SimpleDateFormat("ddMMyyyy_HHmmss").format(Date())
+            val storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            File.createTempFile("IMG_${timeStamp}", ".jpg", storageDir)
+        } catch (e: java.lang.Exception) {
+            null
         }
     }
 

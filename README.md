@@ -183,7 +183,7 @@ Intent()
         ..putExtra(Extra.EXTRA_TEXT, "I Love Computers")
         ..startActivity().catchError((e) => print(e));
 ```
-### Pick a Contact Up from Phone :
+### Pick a Contact up from Phone :
 - Opens default Phone Activity and let user pick a contact up, selected contact will be returned as `Future<List<String>>` from `startActivityForResult()`.
 ```dart
         Intent()
@@ -191,6 +191,14 @@ Intent()
                 ..setData(Uri.parse('content://contacts'))
                 ..setType("vnd.android.cursor.dir/phone_v2")
                 ..startActivityForResult().then((data) => print(data),
+                onError: (e) => print(e));
+```
+### Capture Image using default Camera activity :
+Path to captured image can be grabbed from `Intent().startActivityForResult().then(() { ... } )`, which will be provided in form of `List<String>`, open file using that path, `File(data[0])`. Now you can work on that image file.
+```dart
+        Intent()
+                ..setAction(Action.ACTION_IMAGE_CAPTURE)
+                ..startActivityForResult().then((data) => print(data[0]), // gets you path to image captured
                 onError: (e) => print(e));
 ```
 
