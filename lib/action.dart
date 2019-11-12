@@ -127,4 +127,7 @@ class Action {
   /// intent to capture image, using default camera activity
   static const String ACTION_IMAGE_CAPTURE =
       "android.media.action.IMAGE_CAPTURE";
+
+  static const String ACTION_VIDEO_CAPTURE =
+      "android.media.action.VIDEO_CAPTURE";
 }
