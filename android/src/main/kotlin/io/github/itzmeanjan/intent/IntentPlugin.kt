@@ -194,7 +194,6 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                                 tobeCapturedImageLocationFilePath = it
                                 toBeCapturedImageLocationURI = FileProvider.getUriForFile(activity.applicationContext, "io.github.itzmeanjan.intent.fileProvider", it)
                                 intent.putExtra(MediaStore.EXTRA_OUTPUT, toBeCapturedImageLocationURI)
-                                intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
                                 activity.startActivityForResult(intent, activityVideoCaptureCode)
                             }
                         }
