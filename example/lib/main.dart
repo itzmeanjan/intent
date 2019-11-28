@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intent/intent.dart';
-import 'package:intent/action.dart';
-import 'package:intent/extra.dart';
-import 'package:intent/category.dart';
-import 'package:intent/flag.dart';
+import 'package:intent/intent.dart' as android_intent;
+import 'package:intent/action.dart' as android_action;
+import 'package:intent/extra.dart' as android_extra;
+import 'package:intent/category.dart' as android_category;
+import 'package:intent/flag.dart' as android_flag;
 import 'dart:async' show StreamController;
 import 'dart:io';
 
@@ -47,38 +47,38 @@ class _MyAppState extends State<MyApp> {
                 initialData: [],
                 stream: _myAppDataModel.outputResult,
                 builder: (context, snapshot) => Padding(
-                      padding: EdgeInsets.only(
-                        left: 8,
-                        right: 8,
-                        top: 12,
-                        bottom: 24,
-                      ),
-                      child: snapshot.hasData
-                          ? snapshot.data.isNotEmpty
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(24),
-                                  child: Image.file(
-                                    File(snapshot.data[0]),
-                                    fit: BoxFit.cover,
-                                    width:
-                                        MediaQuery.of(context).size.width * .75,
-                                    height: MediaQuery.of(context).size.height *
-                                        .35,
-                                  ),
-                                )
-                              : Center()
-                          : CircularProgressIndicator(),
+                  padding: EdgeInsets.only(
+                    left: 8,
+                    right: 8,
+                    top: 12,
+                    bottom: 24,
+                  ),
+                  child: snapshot.hasData
+                      ? snapshot.data.isNotEmpty
+                      ? ClipRRect(
+                    borderRadius: BorderRadius.circular(24),
+                    child: Image.file(
+                      File(snapshot.data[0]),
+                      fit: BoxFit.cover,
+                      width:
+                      MediaQuery.of(context).size.width * .75,
+                      height: MediaQuery.of(context).size.height *
+                          .35,
                     ),
+                  )
+                      : Center()
+                      : CircularProgressIndicator(),
+                ),
               ),
               RaisedButton(
                 color: Colors.cyanAccent,
                 elevation: 16,
-                onPressed: () => Intent()
-                  ..setAction(Action.ACTION_IMAGE_CAPTURE)
+                onPressed: () => android_intent.Intent()
+                  ..setAction(android_action.Action.ACTION_VIDEO_CAPTURE)
                   ..startActivityForResult().then(
-                    (data) => _myAppDataModel.inputClickState.add(data),
+                        (data) => print(data),
                     onError: (e) =>
-                        _myAppDataModel.inputClickState.add([e.toString()]),
+                        print(e.toString()),
                   ),
                 child: Text('Intent'),
               ),
@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
 
 class MyAppDataModel {
   StreamController<List<String>> _streamController =
-      StreamController<List<String>>.broadcast();
+  StreamController<List<String>>.broadcast();
 
   Sink<List<String>> get inputClickState => _streamController;
 

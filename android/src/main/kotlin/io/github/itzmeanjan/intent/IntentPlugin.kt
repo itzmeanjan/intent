@@ -70,6 +70,13 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                     } else
                         false
                 }
+                997 ->{
+                    if (resultCode == Activity.RESULT_OK) {
+                        activityCompletedCallBack?.sendDocument(listOf(tobeCapturedImageLocationFilePath.absolutePath))
+                        true
+                    } else
+                        false
+                }
                 else -> {
                     false
                 }
@@ -134,6 +141,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                 }
                 val activityImageCaptureCode = 998
                 val activityIdentifierCode = 999
+                val activityVideoCaptureCode = 997
                 val intent = Intent()
                 intent.action = call.argument<String>("action")
                 if (call.argument<String>("data") != null)
@@ -180,7 +188,15 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                                 activity.startActivityForResult(intent, activityImageCaptureCode)
                             }
                         }
-
+                    }else if (intent.action == MediaStore.ACTION_VIDEO_CAPTURE){
+                        intent.resolveActivity(activity.packageManager).also {
+                            getVideoTempFile()?.also {
+                                tobeCapturedImageLocationFilePath = it
+                                toBeCapturedImageLocationURI = FileProvider.getUriForFile(activity.applicationContext, "io.github.itzmeanjan.intent.fileProvider", it)
+                                intent.putExtra(MediaStore.EXTRA_OUTPUT, toBeCapturedImageLocationURI)
+                                activity.startActivityForResult(intent, activityVideoCaptureCode)
+                            }
+                        }
                     } else {
                         if (call.argument<Boolean>("chooser")!!) activity.startActivityForResult(Intent.createChooser(intent, "Sharing"), activityIdentifierCode)
                         else activity.startActivityForResult(intent, activityIdentifierCode)
@@ -198,6 +214,16 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
             val timeStamp = SimpleDateFormat("ddMMyyyy_HHmmss").format(Date())
             val storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             File.createTempFile("IMG_${timeStamp}", ".jpg", storageDir)
+        } catch (e: java.lang.Exception) {
+            null
+        }
+    }
+
+    private fun getVideoTempFile(): File? {
+        return try {
+            val timeStamp = SimpleDateFormat("ddMMyyyy_HHmmss").format(Date())
+            val storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_DCIM)
+            File.createTempFile("VIDEO_${timeStamp}", ".mp4", storageDir)
         } catch (e: java.lang.Exception) {
             null
         }

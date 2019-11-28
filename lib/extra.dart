@@ -22,4 +22,5 @@ class Extra {
   static const String EXTRA_SUBJECT = "android.intent.extra.SUBJECT";
   static const String EXTRA_TEXT = "android.intent.extra.TEXT";
   static const String EXTRA_TITLE = "android.intent.extra.TITLE";
+  static const String CAMERA_FACING = "android.intent.extras.CAMERA_FACING";
 }
