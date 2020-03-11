@@ -4,7 +4,7 @@
     <application>
         <provider
             android:name=".MyProvider"
-            android:authorities="io.github.itzmeanjan.intent.fileProvider"
+            android:authorities="${applicationId}.io.github.itzmeanjan.intent.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
