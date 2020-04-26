@@ -10,3 +10,9 @@
 * Can pick documents/ multimedia using their default activity, and get you back a `List<String>`, which holds result.
 * There might be some situation in which you want to pick multiple documents, which is why `Intent.startActivityForResult()` returns a `List<String>`.
 * Most important news, `intent` can capture image using default Camera Activity and get you back path to captured image.
+
+## 1.2.0
+
+* Prior to this release on a single device, > 1 app could not use `intent` package, due to name conflict issue, which has been resolved by pull request submitted by [agniswarm](https://github.com/agniswarm) 
+* Added platform specificness in pubspec.yaml to denote usage of package only on android platform
+* Now serving `intent` on pub.dev using verified publisher
