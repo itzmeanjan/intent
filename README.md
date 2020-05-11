@@ -132,6 +132,7 @@ Intent()
         ..putExtra(Extra.EXTRA_CC, ["jane.doe@exampleemail.com"]);
         ..putExtra(Extra.EXTRA_SUBJECT, "Foo bar");
         ..putExtra(Extra.EXTRA_TEXT, "Lorem ipsum");
+        ..startActivity().catchError((e) => print(e));
 ```
 
 ### Create a Document :
