@@ -122,6 +122,18 @@ Intent()
 ```
 It'll always be a wise decision to use `ACTION_DIAL`, because that won't require any kind of permissions.
 
+### Create Precomposed Email :
+```dart
+Intent()
+        ..setPackage("com.google.android.gm")
+        ..setAction(Action.ACTION_SEND);
+        ..setType("message/rfc822");
+        ..putExtra(Extra.EXTRA_EMAIL, ["john.doe@exampleemail.com"]);
+        ..putExtra(Extra.EXTRA_CC, ["jane.doe@exampleemail.com"]);
+        ..putExtra(Extra.EXTRA_SUBJECT, "Foo bar");
+        ..putExtra(Extra.EXTRA_TEXT, "Lorem ipsum");
+```
+
 ### Create a Document :
 Content type of document is set `text/plain`, category is `CATEGORY_OPENABLE` and file name is passed as an extra i.e. `EXTRA_TITLE`.
 ```dart
