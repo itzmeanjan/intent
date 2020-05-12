@@ -88,6 +88,8 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
             "startActivity" -> {
                 val intent = Intent()
                 intent.action = call.argument<String>("action")
+                if (call.argument<String>("package") != null)
+                    intent.package = call.argument<String>("package")
                 if (call.argument<String>("data") != null)
                     intent.data = Uri.parse(call.argument<String>("data"))
                 call.argument<Map<String, Any>>("extra")?.apply {
