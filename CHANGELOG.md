@@ -31,3 +31,8 @@
 * Added `setPackage` support for `startActivityForResult` method in Intent class
 * Updated Android SDK version, Kotlin version
 * Thanks for being so patient :)
+
+## 1.3.2
+
+* Removed cover photo from Github README.md
+
