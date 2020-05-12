@@ -38,7 +38,8 @@ class Intent {
   /// sets data type or mime-type
   setType(String type) => this._type = type;
 
-  /// explicitly sets package information using which Intent to be resolved, preventing chooser from showing up
+  /// explicitly sets package information using which
+  /// Intent to be resolved, preventing chooser from showing up
   setPackage(String package) => this._package = package;
 
   /// sets data, on which intent will perform selected action
@@ -67,6 +68,7 @@ class Intent {
     Map<String, dynamic> parameters = {};
     if (_action != null) parameters['action'] = _action;
     if (_type != null) parameters['type'] = _type;
+    if (_package != null) parameters['package'] = _package;
     if (_data != null) parameters['data'] = _data.toString();
     if (_category.isNotEmpty) parameters['category'] = _category;
     if (_flag.isNotEmpty) parameters['flag'] = _flag;
