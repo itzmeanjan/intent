@@ -24,3 +24,10 @@
 * Thanks to PR submitted by [togiberlin](https://github.com/togiberlin) :)
 * Usage can be found [here](https://github.com/itzmeanjan/intent#create-precomposed-email-)
 * Thanks for using `intent` :)
+
+## 1.3.1
+
+* **Critical bug fix** - in previous release I made a big mistake by not considering `package` is a JAVA keyword, which needs to be escaped in Kotlin code
+* Added `setPackage` support for `startActivityForResult` method in Intent class
+* Updated Android SDK version, Kotlin version
+* Thanks for being so patient :)
