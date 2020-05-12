@@ -11,6 +11,7 @@ class Intent {
 
   String _action;
   String _type;
+  String _package;
   Uri _data;
   List<String> _category;
   List<int> _flag;
@@ -37,16 +38,23 @@ class Intent {
   /// sets data type or mime-type
   setType(String type) => this._type = type;
 
+  /// explicitly sets package information using which Intent to be resolved, preventing chooser from showing up
+  setPackage(String package) => this._package = package;
+
   /// sets data, on which intent will perform selected action
   setData(Uri data) => this._data = data;
 
   /// You'll most likely use this method.
   ///
   /// Will invoke an activity using platform channel, while passing all parameters and setting them in intent
+  ///
+  /// *Now supports setting specific package name, which asks Android to 
+  /// resolve this Intent using that package, provided it's available*
   Future<void> startActivity({bool createChooser: false}) {
     Map<String, dynamic> parameters = {};
     if (_action != null) parameters['action'] = _action;
     if (_type != null) parameters['type'] = _type;
+    if (_package != null) parameters['package'] = _package;
     if (_data != null) parameters['data'] = _data.toString();
     if (_category.isNotEmpty) parameters['category'] = _category;
     if (_flag.isNotEmpty) parameters['flag'] = _flag;
