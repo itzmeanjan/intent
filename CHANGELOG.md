@@ -16,3 +16,11 @@
 * Prior to this release on a single device, > 1 app could not use `intent` package, due to name conflict issue, which has been resolved by pull request submitted by [agniswarm](https://github.com/agniswarm) 
 * Added platform specificness in pubspec.yaml to denote usage of package only on android platform
 * Now serving `intent` on pub.dev using verified publisher
+
+## 1.3.0
+
+* Intent class now lets you set specific package name for resolving intent
+* Assuming that, requested package is present on system, otherwise it'll simply throw PlatformException
+* Thanks to PR submitted by [togiberlin](https://github.com/togiberlin) :)
+* Usage can be found [here](https://github.com/itzmeanjan/intent#create-precomposed-email-)
+* Thanks for using `intent` :)
