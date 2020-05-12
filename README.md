@@ -1,7 +1,5 @@
 # intent
 
-![cover](cover.png)
-
 A simple flutter plugin to deal with Android Intents - your one stop solution for Android Intents, written with :heart:.
 
 Show some :heart: by putting :star:
