@@ -36,3 +36,7 @@
 
 * Removed cover photo from Github README.md
 
+## 1.3.3
+
+* Fixed sourceCompatibility & targetCompatibility issue, set to jdk1.8
+* Fixed image & video capture failure issue

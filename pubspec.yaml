@@ -1,6 +1,6 @@
 name: intent
 description: A simple to use Flutter plugin to deal with Android Intents - your one-stop-solution for Android Intents.
-version: 1.3.2
+version: 1.3.3
 homepage: https://github.com/itzmeanjan/intent
 
 environment:
