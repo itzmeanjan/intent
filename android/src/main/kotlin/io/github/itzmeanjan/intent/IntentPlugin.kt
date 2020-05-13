@@ -53,9 +53,9 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                             activityCompletedCallBack?.sendDocument(filePaths)
                         } else
                             if (intent.type == ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE)
-                                filePaths.add(uriToFilePath(intent.data!!))
-                            else
                                 filePaths.add(resolveContacts(intent.data!!))
+                            else
+                                filePaths.add(uriToFilePath(intent.data!!))
                         activityCompletedCallBack?.sendDocument(filePaths)
                         true
                     } else {
@@ -70,7 +70,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                     } else
                         false
                 }
-                997 ->{
+                997 -> {
                     if (resultCode == Activity.RESULT_OK) {
                         activityCompletedCallBack?.sendDocument(listOf(tobeCapturedImageLocationFilePath.absolutePath))
                         true
@@ -187,16 +187,17 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                         intent.resolveActivity(activity.packageManager).also {
                             getImageTempFile()?.also {
                                 tobeCapturedImageLocationFilePath = it
-                                toBeCapturedImageLocationURI = FileProvider.getUriForFile(activity.applicationContext, "io.github.itzmeanjan.intent.fileProvider", it)
+                                activity.packageName
+                                toBeCapturedImageLocationURI = FileProvider.getUriForFile(activity.applicationContext, "${activity.packageName}.io.github.itzmeanjan.intent.fileProvider", it)
                                 intent.putExtra(MediaStore.EXTRA_OUTPUT, toBeCapturedImageLocationURI)
                                 activity.startActivityForResult(intent, activityImageCaptureCode)
                             }
                         }
-                    }else if (intent.action == MediaStore.ACTION_VIDEO_CAPTURE){
+                    } else if (intent.action == MediaStore.ACTION_VIDEO_CAPTURE) {
                         intent.resolveActivity(activity.packageManager).also {
                             getVideoTempFile()?.also {
                                 tobeCapturedImageLocationFilePath = it
-                                toBeCapturedImageLocationURI = FileProvider.getUriForFile(activity.applicationContext, "io.github.itzmeanjan.intent.fileProvider", it)
+                                toBeCapturedImageLocationURI = FileProvider.getUriForFile(activity.applicationContext, "${activity.packageName}.io.github.itzmeanjan.intent.fileProvider", it)
                                 intent.putExtra(MediaStore.EXTRA_OUTPUT, toBeCapturedImageLocationURI)
                                 activity.startActivityForResult(intent, activityVideoCaptureCode)
                             }

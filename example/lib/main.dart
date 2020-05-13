@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.cyanAccent,
                 elevation: 16,
                 onPressed: () => android_intent.Intent()
-                  ..setAction(android_action.Action.ACTION_VIDEO_CAPTURE)
+                  ..setAction(android_action.Action.ACTION_IMAGE_CAPTURE)
                   ..startActivityForResult().then(
                         (data) => print(data),
                     onError: (e) =>
