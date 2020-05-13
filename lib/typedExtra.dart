@@ -22,7 +22,27 @@ class TypedExtra {
 
   static const String doubleExtra = "double";
 
-  static const String charExtra = 'char';
+  static const String charExtra = "char";
 
   static const String stringExtra = "String";
+
+  /// collection types from aforementioned types
+
+  static const String booleanListExtra = "boolean[]";
+
+  static const String byteListExtra = "byte[]";
+
+  static const String shortListExtra = "short[]";
+
+  static const String intListExtra = "int[]";
+
+  static const String longListExtra = "long[]";
+
+  static const String floatListExtra = "float[]";
+
+  static const String doubleListExtra = "double[]";
+
+  static const String charListExtra = "char[]";
+
+  static const String stringListExtra = "String[]";
 }
