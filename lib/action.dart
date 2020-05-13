@@ -81,7 +81,7 @@ class Action {
   /// will be made to work in future releases
   static const String ACTION_PICK = "android.intent.action.PICK";
 
-  /// power usage summy displaying activity
+  /// power usage summary displaying activity
   static const String ACTION_POWER_USAGE_SUMMARY =
       "android.intent.action.POWER_USAGE_SUMMARY";
 
@@ -128,6 +128,7 @@ class Action {
   static const String ACTION_IMAGE_CAPTURE =
       "android.media.action.IMAGE_CAPTURE";
 
+  /// intent used for capturing video, using default camera of system
   static const String ACTION_VIDEO_CAPTURE =
       "android.media.action.VIDEO_CAPTURE";
 }

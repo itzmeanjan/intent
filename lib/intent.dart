@@ -5,6 +5,7 @@ class Intent {
     this._category = [];
     this._flag = [];
     this._extra = {};
+    this._typeInfo = {};
   }
 
   static const MethodChannel _channel = const MethodChannel('intent');
@@ -16,6 +17,7 @@ class Intent {
   List<String> _category;
   List<int> _flag;
   Map<String, dynamic> _extra;
+  Map<String, String> _typeInfo;
 
   /// adds category for this intent
   ///
@@ -29,6 +31,17 @@ class Intent {
 
   /// puts extra data, to be sent along with intent
   putExtra(String extra, dynamic data) => this._extra[extra] = data;
+
+  /// aims to handle type information for extra data attached
+  /// encodes type information as string, passed through PlatformChannel,
+  /// and finally gets unpacked in platform specific code ( Kotlin )
+  ///
+  /// TypedExtra class holds predefined constants ( type information ),
+  /// consider using those
+  putTypedExtra(String extra, dynamic data, String type) {
+    this._extra[extra] = data;
+    this._typeInfo[extra] = type;
+  }
 
   /// sets what action this intent is supposed to do
   ///
@@ -49,7 +62,7 @@ class Intent {
   ///
   /// Will invoke an activity using platform channel, while passing all parameters and setting them in intent
   ///
-  /// *Now supports setting specific package name, which asks Android to 
+  /// *Now supports setting specific package name, which asks Android to
   /// resolve this Intent using that package, provided it's available*
   Future<void> startActivity({bool createChooser: false}) {
     Map<String, dynamic> parameters = {};
