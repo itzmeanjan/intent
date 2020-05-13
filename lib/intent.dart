@@ -32,6 +32,7 @@ class Intent {
   /// puts extra data, to be sent along with intent
   putExtra(String extra, dynamic data) => this._extra[extra] = data;
 
+  /*
   /// aims to handle type information for extra data attached
   /// encodes type information as string, passed through PlatformChannel,
   /// and finally gets unpacked in platform specific code ( Kotlin )
@@ -42,6 +43,7 @@ class Intent {
     this._extra[extra] = data;
     this._typeInfo[extra] = type;
   }
+  */
 
   /// sets what action this intent is supposed to do
   ///
