@@ -51,12 +51,13 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                                 i++
                             }
                             activityCompletedCallBack?.sendDocument(filePaths)
-                        } else
+                        } else {
                             if (intent.type == ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE)
                                 filePaths.add(resolveContacts(intent.data!!))
                             else
                                 filePaths.add(uriToFilePath(intent.data!!))
-                        activityCompletedCallBack?.sendDocument(filePaths)
+                            activityCompletedCallBack?.sendDocument(filePaths)
+                        }
                         true
                     } else {
                         activityCompletedCallBack?.sendDocument(listOf())
@@ -64,13 +65,6 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                     }
                 }
                 998 -> {
-                    if (resultCode == Activity.RESULT_OK) {
-                        activityCompletedCallBack?.sendDocument(listOf(tobeCapturedImageLocationFilePath.absolutePath))
-                        true
-                    } else
-                        false
-                }
-                997 -> {
                     if (resultCode == Activity.RESULT_OK) {
                         activityCompletedCallBack?.sendDocument(listOf(tobeCapturedImageLocationFilePath.absolutePath))
                         true
@@ -141,9 +135,8 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                         result.success(data)
                     }
                 }
-                val activityImageCaptureCode = 998
+                val activityImageVideoCaptureCode = 998
                 val activityIdentifierCode = 999
-                val activityVideoCaptureCode = 997
                 val intent = Intent()
                 intent.action = call.argument<String>("action")
                 if (call.argument<String>("package") != null)
@@ -190,7 +183,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                                 activity.packageName
                                 toBeCapturedImageLocationURI = FileProvider.getUriForFile(activity.applicationContext, "${activity.packageName}.io.github.itzmeanjan.intent.fileProvider", it)
                                 intent.putExtra(MediaStore.EXTRA_OUTPUT, toBeCapturedImageLocationURI)
-                                activity.startActivityForResult(intent, activityImageCaptureCode)
+                                activity.startActivityForResult(intent, activityImageVideoCaptureCode)
                             }
                         }
                     } else if (intent.action == MediaStore.ACTION_VIDEO_CAPTURE) {
@@ -199,7 +192,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                                 tobeCapturedImageLocationFilePath = it
                                 toBeCapturedImageLocationURI = FileProvider.getUriForFile(activity.applicationContext, "${activity.packageName}.io.github.itzmeanjan.intent.fileProvider", it)
                                 intent.putExtra(MediaStore.EXTRA_OUTPUT, toBeCapturedImageLocationURI)
-                                activity.startActivityForResult(intent, activityVideoCaptureCode)
+                                activity.startActivityForResult(intent, activityImageVideoCaptureCode)
                             }
                         }
                     } else {
@@ -216,7 +209,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
 
     private fun getImageTempFile(): File? {
         return try {
-            val timeStamp = SimpleDateFormat("ddMMyyyy_HHmmss").format(Date())
+            val timeStamp = SimpleDateFormat("ddMMyyyy_HHmmss", Locale.getDefault()).format(Date())
             val storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             File.createTempFile("IMG_${timeStamp}", ".jpg", storageDir)
         } catch (e: java.lang.Exception) {
@@ -226,7 +219,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
 
     private fun getVideoTempFile(): File? {
         return try {
-            val timeStamp = SimpleDateFormat("ddMMyyyy_HHmmss").format(Date())
+            val timeStamp = SimpleDateFormat("ddMMyyyy_HHmmss", Locale.getDefault()).format(Date())
             val storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_DCIM)
             File.createTempFile("VIDEO_${timeStamp}", ".mp4", storageDir)
         } catch (e: java.lang.Exception) {
@@ -245,7 +238,9 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
     }
 
     private fun uriToFilePath(uri: Uri): String {
-        val cursor = activity.applicationContext.contentResolver.query(uri, arrayOf(MediaStore.MediaColumns.DATA), null, null, null)
+        val cursor = activity.applicationContext.contentResolver.query(uri,
+                arrayOf(MediaStore.MediaColumns.DATA),
+                null, null, null)
         cursor?.moveToFirst()
         val tmp = cursor?.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA))
         cursor?.close()
