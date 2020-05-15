@@ -40,3 +40,9 @@
 
 * Fixed sourceCompatibility & targetCompatibility issue, set to jdk1.8
 * Fixed image & video capture failure issue
+
+## 1.3.4
+
+* Activity identifier code updated in Kotlin, using 998 for handling both image & video capture Intent(s)
+* Image & video temp filename format changed, using locale date format ( i.e. ddmmyyyy_HHmmss.* )
+* Updated activity call back handler section, returning result from `else` block of code ( prior to it, it was out of scope of `else` block )
