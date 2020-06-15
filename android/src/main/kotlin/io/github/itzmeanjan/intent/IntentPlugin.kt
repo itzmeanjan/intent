@@ -106,7 +106,14 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                                 else
                                     intent.putExtra(it.key, it.value as CharSequence)
                             }
-                            else -> intent.putExtra(it.key, it.value as String)
+                            else -> {
+                                when (it.value::class.simpleName) {
+                                    "Long" -> intent.putExtra(it.key, it.value as Long)
+                                    "Double" -> intent.putExtra(it.key, it.value as Double)
+                                    "Boolean" -> intent.putExtra(it.key, it.value as Boolean)
+                                    else -> intent.putExtra(it.key, it.value as String)
+                                }
+                            }
                         }
                     }
                 }
@@ -163,7 +170,14 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                                 else
                                     intent.putExtra(it.key, it.value as CharSequence)
                             }
-                            else -> intent.putExtra(it.key, it.value as String)
+                            else -> {
+                                when (it.value::class.simpleName) {
+                                    "Long" -> intent.putExtra(it.key, it.value as Long)
+                                    "Double" -> intent.putExtra(it.key, it.value as Double)
+                                    "Boolean" -> intent.putExtra(it.key, it.value as Boolean)
+                                    else -> intent.putExtra(it.key, it.value as String)
+                                }
+                            }
                         }
                     }
                 }
