@@ -37,7 +37,7 @@ class Intent {
   /// consider using those
   putExtra(String extra, dynamic data, {String type}) {
     this._extra[extra] = data;
-    this._typeInfo[extra] = type;
+    if (type != null) this._typeInfo[extra] = type;
   }
 
   /// Sets what action this intent is supposed to do
