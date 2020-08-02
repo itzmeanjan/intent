@@ -4,13 +4,9 @@ A simple flutter plugin to deal with Android Intents - your one stop solution fo
 
 Show some :heart: by putting :star:
 
-**`intent` tries to help you in launching another android activity using *Android Intents.* This Dart API replicates Android Intent API, so for detailed information on how to use it efficiently, when to send what kind of data, you may be interested in taking a look [here](https://developer.android.com/reference/android/content/Intent.html#intent-structure). Which explains things more elaborately.**
+**`intent` tries to help you in launching another android activity using *Android Intents.* This Dart API replicates Android Intent API, so for detailed information on how to use it efficiently, when to send what kind of data, you may be interested in taking a look [here](https://developer.android.com/reference/android/content/Intent.html#intent-structure), which explains things more elaborately.**
 
 `intent` is readily available for [use](https://pub.dev/packages/intent). 
-
-**_Now publisher account's verified_**
-
-**Resolves long requested name conflict issue, for multiple applications on same device**
 
 ## what does it do ?
 - `intent` is your one stop solution for handling different Android Intents from Flutter app.
@@ -31,6 +27,8 @@ Show some :heart: by putting :star:
 - Open Dialer for calling a specific number
 - Can pick a contact from your default phone activity
 - Can capture a photo using default _Camera Activity_
+
+**Newest Addition: You can pass extra data's type information, while invoking `Intent.putExtra(String extra, dynamic data, {String type})` as optional named param `type`. You don't even need to hardcode type names as Strings, rather a class named `TypedExtra` has been given to developers, which has all currently supported type names as static variables. Consider using them. And last but not least, this is _not_ a breaking change !!!**
 
 ## how to use it ?
 Well make sure, you include `intent` in your `pubspec.yaml`.
