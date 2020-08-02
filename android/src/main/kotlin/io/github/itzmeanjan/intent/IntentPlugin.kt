@@ -188,6 +188,10 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                     intent.`package` = call.argument<String>("package")
                 if (call.argument<String>("data") != null)
                     intent.data = Uri.parse(call.argument<String>("data"))
+                
+                // typeInfo parsed into associative array, which can be used for type casting extra data
+                val typeInfo = call.argument<Map<String, String>>("typeInfo")
+
                 call.argument<Map<String, Any>>("extra")?.apply {
                     this.entries.forEach {
                         when (it.key) {
@@ -208,7 +212,48 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                                 else
                                     intent.putExtra(it.key, it.value as CharSequence)
                             }
-                            else -> intent.putExtra(it.key, it.value as String)
+                            // here in this block, we'll try to leverage type information
+                            // field passed via platform channel
+                            else -> {
+                                // if type information for this extra key is
+                                // provided by developer, then use that type information
+                                if (typeInfo?.containsKey(it.key)!!) {
+
+                                    when (typeInfo[it.key]) {
+                                        // casting into singular types
+
+                                        "boolean" -> intent.putExtra(it.key, it.value as Boolean)
+                                        "byte" -> intent.putExtra(it.key, it.value as Byte)
+                                        "short" -> intent.putExtra(it.key, it.value as Short)
+                                        "int" -> intent.putExtra(it.key, it.value as Int)
+                                        "long" -> intent.putExtra(it.key, it.value as Long)
+                                        "float" -> intent.putExtra(it.key, it.value as Float)
+                                        "double" -> intent.putExtra(it.key, it.value as Double)
+                                        "char" -> intent.putExtra(it.key, it.value as Char)
+                                        "String" -> intent.putExtra(it.key, it.value as String)
+
+                                        // casting into plural types
+
+                                        "boolean[]" -> intent.putExtra(it.key, it.value as BooleanArray)
+                                        "byte[]" -> intent.putExtra(it.key, it.value as ByteArray)
+                                        "short[]" -> intent.putExtra(it.key, it.value as ShortArray)
+                                        "int[]" -> intent.putExtra(it.key, it.value as IntArray)
+                                        "long[]" -> intent.putExtra(it.key, it.value as LongArray)
+                                        "float[]" -> intent.putExtra(it.key, it.value as FloatArray)
+                                        "double[]" -> intent.putExtra(it.key, it.value as DoubleArray)
+                                        "char[]" -> intent.putExtra(it.key, it.value as CharArray)
+                                        "String[]" -> {
+                                            val tmp = it.value as ArrayList<*>
+                                            intent.putExtra(it.key, tmp.toArray(arrayOfNulls<String>(tmp.size)))
+                                        }
+                                        // if some unsupported type information supplied by user
+                                        else -> intent.putExtra(it.key, it.value as String)
+                                    }
+
+                                } else {
+                                    intent.putExtra(it.key, it.value as String)
+                                }
+                            }
                         }
                     }
                 }
