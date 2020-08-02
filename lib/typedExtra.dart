@@ -1,13 +1,15 @@
 /// This class holds some constant strings for user accessibility,
 /// so that end users don't need to hardcode type information
-/// in upcoming Intent.putTypedExtra() method which aims to
-/// facilitate better type handling in Intent.putExtra()
+/// in updated `Intent.putExtra(String extra, dynamic data, {String type})`
+/// method which aims to facilitate better type handling for Intent data.
 ///
 /// Prior to it, all extra passed to Intent, were getting type casted to
 /// `String`, which was bad implementation - trying to improve that
 ///
 /// *This won't break any existing codebase*
 class TypedExtra {
+  /// singular type information
+
   static const String booleanExtra = "boolean";
 
   static const String byteExtra = "byte";
