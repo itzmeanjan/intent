@@ -28,7 +28,23 @@ Show some :heart: by putting :star:
 - Can pick a contact from your default phone activity
 - Can capture a photo using default _Camera Activity_
 
+### latest addition
+
 **Newest Addition: You can pass extra data's type information, while invoking `Intent.putExtra(String extra, dynamic data, {String type})` as optional named param `type`. You don't even need to hardcode type names as Strings, rather a class named `TypedExtra` has been given to developers, which has all currently supported type names as static variables. Consider using them. And last but not least, this is _not_ a breaking change !!!**
+
+```dart
+import 'package:intent/intent.dart' as android_intent;
+import 'package:intent/extra.dart' as android_extra;
+import 'package:intent/typedExtra.dart' as android_typedExtra;
+import 'package:intent/action.dart' as android_action;
+
+// more codes ...
+
+android_intent.Intent()
+        ..setAction(android_action.Action.ACTION_SHOW_APP_INFO)
+        ..putExtra(android_extra.Extra.EXTRA_PACKAGE_NAME, "com.whatsapp", type: android_typedExtra.TypedExtra.stringExtra)
+        ..startActivity().catchError((e) => print(e));
+```
 
 ## how to use it ?
 Well make sure, you include `intent` in your `pubspec.yaml`.
