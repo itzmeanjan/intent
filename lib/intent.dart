@@ -61,7 +61,7 @@ class Intent {
   ///
   /// *Now supports setting specific package name, which asks Android to
   /// resolve this Intent using that package, provided it's available*
-  Future<void> startActivity({bool createChooser: false}) {
+  Future<void> startActivity({bool createChooser: false, String chooserTitle}) {
     Map<String, dynamic> parameters = {};
 
     if (_action != null) parameters['action'] = _action;
@@ -74,6 +74,7 @@ class Intent {
     if (_typeInfo.isNotEmpty) parameters['typeInfo'] = _typeInfo;
 
     parameters['chooser'] = createChooser;
+    parameters['chooserTitle'] = chooserTitle;
 
     return _channel.invokeMethod('startActivity', parameters);
   }
@@ -82,7 +83,8 @@ class Intent {
   /// from intent, then this method needs to be called. Returns
   /// a future, which will be resolved if platform call gets
   /// successful, otherwise results into error.
-  Future<List<String>> startActivityForResult({bool createChooser: false}) {
+  Future<List<String>> startActivityForResult(
+      {bool createChooser: false, String chooserTitle}) {
     Map<String, dynamic> parameters = {};
 
     if (_action != null) parameters['action'] = _action;
@@ -95,6 +97,7 @@ class Intent {
     if (_typeInfo.isNotEmpty) parameters['typeInfo'] = _typeInfo;
 
     parameters['chooser'] = createChooser;
+    parameters['chooserTitle'] = chooserTitle;
 
     return _channel
         .invokeMethod('startActivityForResult', parameters)
