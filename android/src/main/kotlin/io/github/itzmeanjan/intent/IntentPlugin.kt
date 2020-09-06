@@ -84,8 +84,16 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                 intent.action = call.argument<String>("action")
                 if (call.argument<String>("package") != null)
                     intent.`package` = call.argument<String>("package")
-                if (call.argument<String>("data") != null)
-                    intent.data = Uri.parse(call.argument<String>("data"))
+                
+                val _data = call.argument<String>("data")
+                val _type = call.argument<String>("type")
+                if (_data != null && _type == null)
+                    intent.data = Uri.parse(_data);
+                if (_type != null && _data == null)
+                    intent.type = _type;
+                if (_type != null && _data != null) {
+                    intent.setDataAndType(Uri.parse(_data), _type);
+                }
 
                 // typeInfo parsed into associative array, which can be used for type casting extra data
                 val typeInfo = call.argument<Map<String, String>>("typeInfo")
@@ -161,8 +169,6 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                 call.argument<List<String>>("category")?.forEach {
                     intent.addCategory(it)
                 }
-                if (call.argument<String>("type") != null)
-                    intent.type = call.argument<String>("type")
                 try {
                     if (call.argument<Boolean>("chooser")!!) activity.startActivity(Intent.createChooser(intent, "Sharing"))
                     else activity.startActivity(intent)
@@ -186,8 +192,16 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                 intent.action = call.argument<String>("action")
                 if (call.argument<String>("package") != null)
                     intent.`package` = call.argument<String>("package")
-                if (call.argument<String>("data") != null)
-                    intent.data = Uri.parse(call.argument<String>("data"))
+                
+                val _data = call.argument<String>("data")
+                val _type = call.argument<String>("type")
+                if (_data != null && _type == null)
+                    intent.data = Uri.parse(_data);
+                if (_type != null && _data == null)
+                    intent.type = _type;
+                if (_type != null && _data != null) {
+                    intent.setDataAndType(Uri.parse(_data), _type);
+                }
                 
                 // typeInfo parsed into associative array, which can be used for type casting extra data
                 val typeInfo = call.argument<Map<String, String>>("typeInfo")
@@ -263,8 +277,6 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                 call.argument<List<String>>("category")?.forEach {
                     intent.addCategory(it)
                 }
-                if (call.argument<String>("type") != null)
-                    intent.type = call.argument<String>("type")
                 try {
                     if (intent.action == MediaStore.ACTION_IMAGE_CAPTURE) {
                         intent.resolveActivity(activity.packageManager).also {
