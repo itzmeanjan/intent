@@ -221,12 +221,10 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
         if (call.argument<String>("type") != null)
             intent.type = call.argument<String>("type")
 
-        call.argument<Map<String, String>>("component")?.let { component ->
-            val packageName = component["packageName"]
-            val className = component["className"]
-            check(packageName != null)
-            check(className != null)
-            intent.component = ComponentName(packageName, className)
+        call.argument<String>("component")?.let { component ->
+            val packageName = call.argument<String>("package")
+            check(packageName != null) { "Package $package not found for component" }
+            intent.component = ComponentName(packageName, component)
         }
 
         return intent

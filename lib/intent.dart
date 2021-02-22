@@ -18,7 +18,7 @@ class Intent {
   List<int> _flag;
   Map<String, dynamic> _extra;
   Map<String, String> _typeInfo;
-  Map<String, String> _component;
+  String _component;
 
   /// Adds category for this intent
   ///
@@ -57,8 +57,8 @@ class Intent {
   setData(Uri data) => this._data = data;
 
   /// Sets component with packageName and className
-  setComponent({String packageName, String className}) =>
-      this._component = {'packageName': packageName, 'className': className};
+  setComponent(String component) =>
+      this._component = component;
 
   /// You'll most likely use this method.
   ///
