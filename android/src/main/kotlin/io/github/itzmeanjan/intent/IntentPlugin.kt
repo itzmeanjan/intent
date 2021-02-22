@@ -1,6 +1,7 @@
 package io.github.itzmeanjan.intent
 
 import android.app.Activity
+import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.os.Environment
@@ -219,6 +220,15 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
         }
         if (call.argument<String>("type") != null)
             intent.type = call.argument<String>("type")
+
+        call.argument<Map<String, String>>("component")?.let { component ->
+            val packageName = component["packageName"]
+            val className = component["className"]
+            check(packageName != null)
+            check(className != null)
+            intent.component = ComponentName(packageName, className)
+        }
+
         return intent
     }
 
