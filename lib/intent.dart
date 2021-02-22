@@ -18,6 +18,7 @@ class Intent {
   List<int> _flag;
   Map<String, dynamic> _extra;
   Map<String, String> _typeInfo;
+  Map<String, String> _component;
 
   /// Adds category for this intent
   ///
@@ -55,6 +56,10 @@ class Intent {
   /// Sets data, on which intent will perform selected action
   setData(Uri data) => this._data = data;
 
+  /// Sets component with packageName and className
+  setComponent({String packageName, String className}) =>
+      this._component = {'packageName': packageName, 'className': className};
+
   /// You'll most likely use this method.
   ///
   /// Will invoke an activity using platform channel, while passing all parameters and setting them in intent
@@ -72,6 +77,7 @@ class Intent {
     if (_flag.isNotEmpty) parameters['flag'] = _flag;
     if (_extra.isNotEmpty) parameters['extra'] = _extra;
     if (_typeInfo.isNotEmpty) parameters['typeInfo'] = _typeInfo;
+    if (_component.isNotEmpty) parameters['component'] = _component;
 
     parameters['chooser'] = createChooser;
 
@@ -93,6 +99,7 @@ class Intent {
     if (_flag.isNotEmpty) parameters['flag'] = _flag;
     if (_extra.isNotEmpty) parameters['extra'] = _extra;
     if (_typeInfo.isNotEmpty) parameters['typeInfo'] = _typeInfo;
+    if (_component.isNotEmpty) parameters['component'] = _component;
 
     parameters['chooser'] = createChooser;
 
