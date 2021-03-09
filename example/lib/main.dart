@@ -12,7 +12,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  MyAppDataModel _myAppDataModel;
+  late MyAppDataModel _myAppDataModel;
 
   @override
   void initState() {
@@ -51,11 +51,11 @@ class _MyAppState extends State<MyApp> {
                     bottom: 24,
                   ),
                   child: snapshot.hasData
-                      ? snapshot.data.isNotEmpty
+                      ? snapshot.data!.isNotEmpty
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(24),
                               child: Image.file(
-                                File(snapshot.data[0]),
+                                File(snapshot.data![0]),
                                 fit: BoxFit.cover,
                                 width: MediaQuery.of(context).size.width * .75,
                                 height:
