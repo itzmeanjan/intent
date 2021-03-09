@@ -1,19 +1,15 @@
 import 'package:flutter/services.dart';
 
 class Intent {
-  Intent() {
-    this._category = [];
-    this._flag = [];
-    this._extra = {};
-    this._typeInfo = {};
-  }
+  Intent() :
+        _category = [], _flag = [], _extra = {}, _typeInfo = {};
 
   static const MethodChannel _channel = const MethodChannel('intent');
 
-  String _action;
-  String _type;
-  String _package;
-  Uri _data;
+  String? _action;
+  String? _type;
+  String? _package;
+  Uri? _data;
   List<String> _category;
   List<int> _flag;
   Map<String, dynamic> _extra;
@@ -35,7 +31,7 @@ class Intent {
   ///
   /// TypedExtra class holds predefined constants ( type information ),
   /// consider using those
-  putExtra(String extra, dynamic data, {String type}) {
+  putExtra(String extra, dynamic data, {String? type}) {
     this._extra[extra] = data;
     if (type != null) this._typeInfo[extra] = type;
   }
