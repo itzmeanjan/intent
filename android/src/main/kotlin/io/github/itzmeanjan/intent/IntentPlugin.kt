@@ -32,8 +32,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
 
     }
 
-    override fun onMethodCall(call: MethodCall, result: Result) {
-
+    init {
         // when an activity will be started for getting some result from it, this callback function will handle it
         // then processes received data and send that back to user
         registrar.addActivityResultListener { requestCode, resultCode, intent ->
@@ -76,7 +75,9 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                 }
             }
         }
+    }
 
+    override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             // when we're not interested in result of activity started, we call this method via platform channel
             "startActivity" -> {
