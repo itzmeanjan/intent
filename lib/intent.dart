@@ -10,24 +10,24 @@ class Intent {
 
   static const MethodChannel _channel = const MethodChannel('intent');
 
-  String _action;
-  String _type;
-  String _package;
-  Uri _data;
-  List<String> _category;
-  List<int> _flag;
-  Map<String, dynamic> _extra;
-  Map<String, String> _typeInfo;
+  String? _action;
+  String? _type;
+  String? _package;
+  Uri? _data;
+  List<String>? _category;
+  List<int>? _flag;
+  Map<String, dynamic>? _extra;
+  Map<String, String>? _typeInfo;
 
   /// Adds category for this intent
   ///
   /// Supported values can be found in Category class
-  addCategory(String category) => this._category.add(category);
+  addCategory(String category) => this._category!.add(category);
 
   /// Sets flags for intent
   ///
   /// Get possible flag values from Flag class
-  addFlag(int flag) => this._flag.add(flag);
+  addFlag(int flag) => this._flag!.add(flag);
 
   /// Aims to handle type information for extra data attached
   /// encodes type information as string, passed through PlatformChannel,
@@ -35,9 +35,9 @@ class Intent {
   ///
   /// TypedExtra class holds predefined constants ( type information ),
   /// consider using those
-  putExtra(String extra, dynamic data, {String type}) {
-    this._extra[extra] = data;
-    if (type != null) this._typeInfo[extra] = type;
+  putExtra(String extra, dynamic data, {String? type}) {
+    this._extra![extra] = data;
+    if (type != null) this._typeInfo![extra] = type;
   }
 
   /// Sets what action this intent is supposed to do
@@ -68,10 +68,10 @@ class Intent {
     if (_type != null) parameters['type'] = _type;
     if (_package != null) parameters['package'] = _package;
     if (_data != null) parameters['data'] = _data.toString();
-    if (_category.isNotEmpty) parameters['category'] = _category;
-    if (_flag.isNotEmpty) parameters['flag'] = _flag;
-    if (_extra.isNotEmpty) parameters['extra'] = _extra;
-    if (_typeInfo.isNotEmpty) parameters['typeInfo'] = _typeInfo;
+    if (_category!.isNotEmpty) parameters['category'] = _category;
+    if (_flag!.isNotEmpty) parameters['flag'] = _flag;
+    if (_extra!.isNotEmpty) parameters['extra'] = _extra;
+    if (_typeInfo!.isNotEmpty) parameters['typeInfo'] = _typeInfo;
 
     parameters['chooser'] = createChooser;
 
@@ -89,10 +89,10 @@ class Intent {
     if (_type != null) parameters['type'] = _type;
     if (_package != null) parameters['package'] = _package;
     if (_data != null) parameters['data'] = _data.toString();
-    if (_category.isNotEmpty) parameters['category'] = _category;
-    if (_flag.isNotEmpty) parameters['flag'] = _flag;
-    if (_extra.isNotEmpty) parameters['extra'] = _extra;
-    if (_typeInfo.isNotEmpty) parameters['typeInfo'] = _typeInfo;
+    if (_category!.isNotEmpty) parameters['category'] = _category;
+    if (_flag!.isNotEmpty) parameters['flag'] = _flag;
+    if (_extra!.isNotEmpty) parameters['extra'] = _extra;
+    if (_typeInfo!.isNotEmpty) parameters['typeInfo'] = _typeInfo;
 
     parameters['chooser'] = createChooser;
 
