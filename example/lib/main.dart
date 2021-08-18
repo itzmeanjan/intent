@@ -66,9 +66,11 @@ class _MyAppState extends State<MyApp> {
                       : CircularProgressIndicator(),
                 ),
               ),
-              RaisedButton(
-                color: Colors.cyanAccent,
-                elevation: 16,
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.cyanAccent,
+                  elevation: 16,
+                ),
                 onPressed: () => android_intent.Intent()
                   ..setAction(android_action.Action.ACTION_IMAGE_CAPTURE)
                   ..startActivityForResult().then(
@@ -86,13 +88,11 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyAppDataModel {
-  StreamController<List<String>> _streamController =
-      StreamController<List<String>>.broadcast();
+  StreamController<List<String>> _streamController = StreamController<List<String>>.broadcast();
 
   Sink<List<String>> get inputClickState => _streamController;
 
-  Stream<List<String>> get outputResult =>
-      _streamController.stream.map((data) => data);
+  Stream<List<String>> get outputResult => _streamController.stream.map((data) => data);
 
   dispose() => _streamController.close();
 }
