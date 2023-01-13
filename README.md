@@ -1,3 +1,5 @@
+> **Warning** I've stopped maintaining this project !
+
 # intent
 
 A simple flutter plugin to deal with Android Intents - your one stop solution for Android Intents, written with :heart:.
